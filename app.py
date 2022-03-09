@@ -2,8 +2,8 @@ from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
 from auth import authenticate, identity
-from member import MemberRegister
-from task import Task, TaskList
+from resources.member import MemberRegister
+from resources.task import Task, TaskList
 
 #give file unique name
 app = Flask(__name__)

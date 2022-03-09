@@ -1,4 +1,4 @@
-from user import Member
+from resources.member import Member
 
 members = [
     Member(1, 'bob', 'dingus')
