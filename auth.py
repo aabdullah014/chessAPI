@@ -1,11 +1,11 @@
 from models.member import MemberModel
-from werkzeug.security import safe_str_cmp
+from hmac import compare_digest
 
 
 def authenticate(username, password):
-    user = MemberModel.find_by_username(username)
-    if user and safe_str_cmp(user.password, password):
-        return user
+    member = MemberModel.find_by_username(username)
+    if member and compare_digest(member.password, password):
+        return member
 
 def identity(payload):
     user_id = payload['identity']

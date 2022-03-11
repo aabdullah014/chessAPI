@@ -1,23 +1,19 @@
 from db import db
 
-class TaskModel(db.Model):
+class FamilyModel(db.Model):
     #table for sqlalchemy
-    __tablename__ = 'tasks'
+    __tablename__ = 'families'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
-    due_date = db.Column(db.Integer)
 
-    family_id = db.Column(db.Integer, db.ForeignKey('families.id'))
-    family = db.relationship('FamilyModel')
+    members = db.relationship('TaskModel', lazy='dynamic')
 
-    def __init__(self, name, due_date, family_id) -> None:
+    def __init__(self, name) -> None:
         self.name = name
-        self.due_date = due_date
-        self.family_id = family_id
 
     def json(self):
-        return {'name': self.name, 'due_date': self.price}
+        return {'name': self.name, 'tasks': [task.json() for task in self.tasks.all()]}
     
     @classmethod
     def find_by_name(cls, name):

@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt  import jwt_required
 from models.task import TaskModel
-import sqlite3
 
 class Task(Resource):
     parser = reqparse.RequestParser()
@@ -10,14 +9,18 @@ class Task(Resource):
         required = True,
         help = "This field cannot be left blank"
     )
-    # data = parser.parse_args()
+    parser.add_argument('family_id', 
+        type = int,
+        required = True,
+        help = "This field cannot be blank."    
+    )
 
     @jwt_required
     def get(self, name):
         task = TaskModel.find_by_name(name)
 
         if task:
-            return task
+            return task.json()
         return {'message': 'Item not found'}, 404
 
     @jwt_required
@@ -27,40 +30,37 @@ class Task(Resource):
 
         data = Task.parser.parse_args()
 
-        task = Task.parser.parse_args()
+        task = TaskModel(name, **data)
 
         try:
-            TaskModel.insert(task)
+            task.save_to_db()
         except:
             return{'message': 'An error occurred inserting the item.'}, 500
 
-        return task, 201
+        return task.json(), 201
 
     @jwt_required
     def delete(self, name):
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-
-        query = "DELETE FROM tasks WHERE name=?"
-
-        cursor.execute(query, (name,))
-        connection.commit()
-        connection.close()
-        
-        return {'message': 'Task deleted.'}
+        task = TaskModel.find_by_name(name)
+        if task: 
+            task.delete_from_db
+            return {'message': 'Task deleted.'}
+        return {'message': 'Item not found.'}, 404
 
     @jwt_required
     def put(self, name):
         data = Task.parser.parse_args()
 
-        task = next(filter(lambda x: x['name'] == name, tasks), None)
-        if not task:
-            task = {'name': name, 'due_date': data['due_date']}
-            tasks.append(task)
+        task = TaskModel.find_by_name(name)
+
+        if task:
+            task.due_date = data['due_date']
         else:
-            task.update(data)
-        return task
+            task = TaskModel(name, **data)  
+        task.save_to_db()
+
+        return task.json()
 
 class TaskList(Resource):
     def get(self):
-        return {'tasks': tasks}
+        return {'tasks': list(map(lambda x: x.json(), TaskModel.query.all()))}
