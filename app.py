@@ -27,7 +27,7 @@ def create_tables():
 jwt = JWT(app, authenticate, identity)
 
 
-api.add_resource(Task, '/family/<string:name>')
+api.add_resource(Task, '/task/<string:name>')
 api.add_resource(TaskList, '/tasks')
 api.add_resource(MemberRegister, '/register')
 api.add_resource(Family, '/family/<string:name>')

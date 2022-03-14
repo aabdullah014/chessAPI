@@ -15,7 +15,7 @@ class Task(Resource):
         help = "This field cannot be blank."    
     )
 
-    @jwt_required
+    @jwt_required()
     def get(self, name):
         task = TaskModel.find_by_name(name)
 
@@ -23,7 +23,7 @@ class Task(Resource):
             return task.json()
         return {'message': 'Item not found'}, 404
 
-    @jwt_required
+    @jwt_required()
     def post(self, name):
         if TaskModel.find_by_name(name):
             return {'message': 'An item with name "{}" already exists.'.format(name)}, 400
@@ -39,15 +39,15 @@ class Task(Resource):
 
         return task.json(), 201
 
-    @jwt_required
+    @jwt_required()
     def delete(self, name):
         task = TaskModel.find_by_name(name)
         if task: 
-            task.delete_from_db
+            task.delete_from_db()
             return {'message': 'Task deleted.'}
         return {'message': 'Item not found.'}, 404
 
-    @jwt_required
+    @jwt_required()
     def put(self, name):
         data = Task.parser.parse_args()
 

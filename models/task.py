@@ -17,20 +17,20 @@ class TaskModel(db.Model):
         self.family_id = family_id
 
     def json(self):
-        return {'name': self.name, 'due_date': self.price}
+        return {'name': self.name, 'due_date': self.due_date}
     
     @classmethod
     def find_by_name(cls, name):
         # SELECT * FROM tasks WHERE name=name LIMIT 1 using sqlalchemy
         return cls.query.filter_by(name=name).first()
 
-    @classmethod
+    
     def save_to_db(self):
         #INSERT INTO tasks VALUES (?, ?)
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
+    
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
