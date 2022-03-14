@@ -1,2 +1,2 @@
-# chessAPI
-API that uses inputted moves and returns games that have used those moves and their outcomes
+# taskAPI
+API that records tasks for families and their members, with due dates.
