@@ -8,5 +8,55 @@
 </head>
 <body>
     <h1>Welcome to taskAPI!</h1>
+    <h2>Structure of the API:</h2>
+    <h3>Families</h3>
+    <ul>
+        <li>
+            Families are the most general group, and each family has tasks. 
+        </li>
+        <li>
+            Each family has a specific id it is associated with. That id is used when delegating tasks to keep track of which tasks belong to which families.
+        </li>
+    </ul>
+
+    <h3>Tasks</h3>
+    <ul>
+        <li>
+            Tasks are pretty straightforward in their function, but there are things to keep in mind. 
+        </li>
+        <li>
+            You must be registered when creating a new task.
+        </li>
+        <li>
+            Each task requires a name, a due date, and a family id to associate it with a family. When a task is created, it will automatically show up in the associated family's task list.
+        </li>
+    </ul>
+        
+    </ul>
+    <h2>Endpoints</h2>
+    <ul>
+        <h3>Registering/Members:</h3>
+        <ul>
+            <li>POST /register</li>
+            <li>POST /auth</li>
+        </ul>
+
+        <h3>Tasks:</h3>
+        <ul>
+            <li>GET /tasks</li>
+            <li>GET /task/(taskname)</li>
+            <li>POST /task/(taskname)</li>
+            <li>PUT /task/(taskname)</li>
+            <li>DELETE /task/(taskname)</li>
+        </ul>
+
+        <h3>Families:</h3>
+        <ul>
+            <li>GET /families</li>
+            <li>GET /family/(familyname)</li>
+            <li>POST /family/(familyname)</li>
+            <li>DELETE /family/(familyname)</li>
+        </ul>
+    </ul>
 </body>
 </html>
