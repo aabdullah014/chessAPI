@@ -37,11 +37,10 @@ api.add_resource(MemberRegister, '/register')
 api.add_resource(Family, '/family/<string:name>')
 api.add_resource(FamilyList, '/families')
 
+@app.route('/')
+def home():
+    return render_template("index.html")
+
 if __name__ == "__main__":
     db.init_app(app)
-
-    @app.route('/')
-    def home():
-        return render_template("index.html")
-
     app.run(port=3000, debug=True)
