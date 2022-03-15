@@ -7,7 +7,7 @@ class FamilyModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
 
-    members = db.relationship('TaskModel', lazy='dynamic')
+    tasks = db.relationship('TaskModel', lazy='dynamic')
 
     def __init__(self, name) -> None:
         self.name = name
@@ -20,7 +20,7 @@ class FamilyModel(db.Model):
         # SELECT * FROM tasks WHERE name=name LIMIT 1 using sqlalchemy
         return cls.query.filter_by(name=name).first()
 
-    @classmethod
+    
     def save_to_db(self):
         #INSERT INTO tasks VALUES (?, ?)
         db.session.add(self)
