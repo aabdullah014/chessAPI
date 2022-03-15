@@ -31,4 +31,4 @@ class Family(Resource):
 
 class FamilyList(Resource):
     def get(self):
-        return{'families': [family.json() for family in FamilyModel.query.all()]}
+        return {'families': list(map(lambda x: x.json(), FamilyModel.query.all()))}
