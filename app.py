@@ -21,7 +21,7 @@ uri = os.getenv("DATABASE_URL")
 # replace uri with postgresql to work with heroku
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://")
-app.config['SQLALCHEMY_DATABASE_URI'] = uri, 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = uri #'sqlite:///data.db'
 app.config['PROPOGATE_EXCEPTIONS'] = True
 app.secret_key = 'secretysecret'
 
