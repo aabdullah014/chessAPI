@@ -1,3 +1,6 @@
+import os
+import re
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -13,8 +16,12 @@ app = Flask(__name__)
 
 #sqlalchemy turns off flask modification tracker
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#tell sqlalchemy that data.db is in root folder of directory
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+#tell sqlalchemy that data.db is in root folder of directory or use DATABASE_URL from heroku
+uri = os.getenv("DATABASE_URL")
+# replace uri with postgresql to work with heroku
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://")
+app.config['SQLALCHEMY_DATABASE_URI'] = uri, 'sqlite:///data.db'
 app.config['PROPOGATE_EXCEPTIONS'] = True
 app.secret_key = 'secretysecret'
 
