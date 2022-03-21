@@ -6,18 +6,18 @@ class Family(Resource):
         family = FamilyModel.find_by_name(name)
         if family:
             return family.json()
-        return {'message': 'Store not found'}, 404
+        return {'message': 'Family not found'}, 404
     
     def post(self, name):
         if FamilyModel.find_by_name(name):
-            return {'message': 'A store with name "{}" already exists.'.format(name)}, 400
+            return {'message': 'A family with name "{}" already exists.'.format(name)}, 400
         
         family = FamilyModel(name)
 
         try:
             family.save_to_db()
         except:
-            return {'message': 'An error occurred while creating the store.'}, 500
+            return {'message': 'An error occurred while creating the family.'}, 500
 
         return family.json()
 
