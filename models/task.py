@@ -8,13 +8,13 @@ class TaskModel(db.Model):
     name = db.Column(db.String(20))
     due_date = db.Column(db.Integer)
 
-    family_id = db.Column(db.Integer, db.ForeignKey('families.id'))
+    family_name = db.Column(db.Integer, db.ForeignKey('families.name'))
     family = db.relationship('FamilyModel')
 
-    def __init__(self, name, due_date, family_id) -> None:
+    def __init__(self, name, due_date, family_name) -> None:
         self.name = name
         self.due_date = due_date
-        self.family_id = family_id
+        self.family_name = family_name
 
     def json(self):
         return {'name': self.name, 'due_date': self.due_date}
