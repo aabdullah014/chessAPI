@@ -4,7 +4,8 @@ class FamilyModel(db.Model):
     #table for sqlalchemy
     __tablename__ = 'families'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id_count = 0
+    id = db.Column(db.Integer)
     name = db.Column(db.String(20))
 
     tasks = db.relationship('TaskModel', lazy='dynamic')
@@ -23,11 +24,13 @@ class FamilyModel(db.Model):
     
     def save_to_db(self):
         #INSERT INTO tasks VALUES (?, ?)
+        id_count += 1
         db.session.add(self)
         db.session.commit()
 
     @classmethod
     def delete_from_db(self):
+        id_count -= 1
         db.session.delete(self)
         db.session.commit()
         

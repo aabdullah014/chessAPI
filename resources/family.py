@@ -24,7 +24,7 @@ class Family(Resource):
     def delete(self, name):
         family = FamilyModel.find_by_name(name)
         if family:
-            family.delete_from_db
+            family.delete_from_db()
         
         return {'message': 'Family deleted'}
 
