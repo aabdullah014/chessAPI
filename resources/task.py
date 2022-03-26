@@ -10,7 +10,7 @@ class Task(Resource):
         help = "This field cannot be left blank"
     )
     parser.add_argument('family_name', 
-        type = int,
+        type = str,
         required = True,
         help = "This field cannot be blank."    
     )
