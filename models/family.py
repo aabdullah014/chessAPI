@@ -17,12 +17,10 @@ class FamilyModel(db.Model):
     
     @classmethod
     def find_by_name(cls, name):
-        # SELECT * FROM tasks WHERE name=name LIMIT 1 using sqlalchemy
         return cls.query.filter_by(name=name).first()
 
     
     def save_to_db(self):
-        #INSERT INTO tasks VALUES (?, ?)
         db.session.add(self)
         db.session.commit()
 

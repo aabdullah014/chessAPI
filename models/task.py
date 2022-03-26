@@ -8,7 +8,7 @@ class TaskModel(db.Model):
     name = db.Column(db.String(20))
     due_date = db.Column(db.Integer)
 
-    family_id = db.Column(db.Integer, db.ForeignKey('families.id'))
+    family_id = db.Column(db.Integer, db.ForeignKey('families.name'))
     family = db.relationship('FamilyModel')
 
     def __init__(self, name, due_date, family_id) -> None:
